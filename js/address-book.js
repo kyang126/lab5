@@ -34,3 +34,63 @@ function sortObjArray(objArray, propName) {
     });
 } //sortObjArray()
 
+
+
+$(function() {
+  // Document is ready
+
+  $.sortObjArray('.last');
+  render(entries, $('.template'), $('.Employees'));
+
+  $('.name').click(function(){
+        topSongs.sort(function(a,b){
+            return a.last.localeCompare(b.artist);
+        });
+        render(entries, $('.template'), $('.Employees'));
+    });
+
+  $('.title').click(function(){
+        topSongs.sort(function(a,b){
+            return a.title.localeCompare(b.artist);
+        });
+        render(entries, $('.template'), $('.Employees'));
+    });
+
+  $('.dept').click(function(){
+        topSongs.sort(function(a,b){
+            return a.dept.localeCompare(b.artist);
+        });
+        render(entries, $('.template'), $('.Employees'));
+    });
+
+  if(this.active != true) {
+      this.active.removeClass();
+  } else {
+    this.active.addClass();
+  }
+
+});
+
+
+function render(entries, template, container){
+    var instance;
+    container.empty();
+    $.each(entries, function()) {
+        return instance = template.clone();
+        instance.find('.first').html(this.first);
+        instance.find('.last').html(this.last);
+        instance.find('.title').html(this.title);
+        instance.find('.dept').html(this.dept);
+        instance.find('.pic').attr({
+            src: this.pic,
+            alt: 'Picture of ' + this.first + this.last
+        });
+
+    }
+    
+
+    instance.removeClass('template');
+    container.append(instance);
+
+}
+

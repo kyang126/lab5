@@ -39,9 +39,9 @@ function sortObjArray(objArray, propName) {
 $(function() {
   // Document is ready
 
+  render(Employees.entries);
+/*
   $.sortObjArray('.last');
-  render(entries, $('.template'), $('.Employees'));
-
   $('.name').click(function(){
         topSongs.sort(function(a,b){
             return a.last.localeCompare(b.artist);
@@ -68,29 +68,35 @@ $(function() {
   } else {
     this.active.addClass();
   }
-
+*/
 });
 
 
-function render(entries, template, container){
+
+function render(entries) {
+    var template = $('.template');
+    var container = $('.address-book');
     var instance;
+    container.hide();
     container.empty();
-    $.each(entries, function()) {
-        return instance = template.clone();
-        instance.find('.first').html(this.first);
-        instance.find('.last').html(this.last);
-        instance.find('.title').html(this.title);
-        instance.find('.dept').html(this.dept);
-        instance.find('.pic').attr({
-            src: this.pic,
-            alt: 'Picture of ' + this.first + this.last
-        });
 
+    $.each(entries, function(){
+    instance = template.clone();
+    for (entries in container) {
+        for (property in this) {
+            instance.find('.' + property);
+            if (property =='pic') {
+                instance.find('.pic').attr({
+                    src: this.pic,
+                    alt: 'Picture of ' + this.first + ' ' + this.last
+                });
+            } else {
+                instance.find('.' + property).html(this[property]);
+            }
+        }
     }
-    
-
-    instance.removeClass('template');
-    container.append(instance);
-
+        instance.removeClass('template');
+        container.append(instance);
+        container.fadeIn(700);
+    });
 }
-

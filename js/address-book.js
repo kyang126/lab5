@@ -38,51 +38,26 @@ function sortObjArray(objArray, propName) {
 
 $(function() {
   // Document is ready
-
-  render(Employees.entries);
-/*
-  $.sortObjArray('.last');
-  $('.name').click(function(){
-        topSongs.sort(function(a,b){
-            return a.last.localeCompare(b.artist);
-        });
-        render(entries, $('.template'), $('.Employees'));
+  //render(Employees.entries);
+  render(Employees.entries, $('.template'), $('.address-book'));
+ $('.sort-ui .btn').click(function(){
+        var sortBtn = $(this);
+        sortObjArray(Employees.entries, sortBtn.attr('data-sortby'));
+        render(Employees.entries, $('.template'), $('.address-book'));
+        sortBtn.siblings().removeClass('active');
+        sortBtn.addClass('active');
     });
-
-  $('.title').click(function(){
-        topSongs.sort(function(a,b){
-            return a.title.localeCompare(b.artist);
-        });
-        render(entries, $('.template'), $('.Employees'));
-    });
-
-  $('.dept').click(function(){
-        topSongs.sort(function(a,b){
-            return a.dept.localeCompare(b.artist);
-        });
-        render(entries, $('.template'), $('.Employees'));
-    });
-
-  if(this.active != true) {
-      this.active.removeClass();
-  } else {
-    this.active.addClass();
-  }
-*/
 });
 
 
 
-function render(entries) {
-    var template = $('.template');
-    var container = $('.address-book');
+function render(entries, template, container) {
     var instance;
     container.hide();
     container.empty();
 
     $.each(entries, function(){
-    instance = template.clone();
-    for (entries in container) {
+        instance = template.clone();
         for (property in this) {
             instance.find('.' + property);
             if (property =='pic') {
@@ -94,9 +69,16 @@ function render(entries) {
                 instance.find('.' + property).html(this[property]);
             }
         }
-    }
         instance.removeClass('template');
         container.append(instance);
-        container.fadeIn(700);
+        container.fadeIn(1000);
+
+        $('.sort-ui .btn').popover({
+        content: function(){return 'Click to Resort by ' + $(this).html()},
+        container: 'body',
+        trigger: 'hover',
+        placement: 'bottom'
+    });
+
     });
 }

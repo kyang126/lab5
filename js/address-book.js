@@ -38,7 +38,6 @@ function sortObjArray(objArray, propName) {
 
 $(function() {
   // Document is ready
-  //render(Employees.entries);
   render(Employees.entries, $('.template'), $('.address-book'));
  $('.sort-ui .btn').click(function(){
         var sortBtn = $(this);
